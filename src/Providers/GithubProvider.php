@@ -30,7 +30,7 @@ class GithubProvider extends AbstractProvider
      *
      * @return string
      */
-    protected function getName(): string
+    protected function getProviderName(): string
     {
         return SocialUser::PROVIDER_GITHUB;
     }

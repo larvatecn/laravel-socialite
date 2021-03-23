@@ -35,7 +35,7 @@ class LibreSpeedProvider extends AbstractProvider
      */
     protected function getAuthUrl(string $state): string
     {
-        return $this->buildAuthUrlFromBase('https://www.librespeed.net/oauth/authorize', $state);
+        return $this->buildAuthUrlFromBase('https://www.librespeed.cn/oauth/authorize', $state);
     }
 
     /**
@@ -44,7 +44,7 @@ class LibreSpeedProvider extends AbstractProvider
      */
     protected function getTokenUrl(): string
     {
-        return 'https://www.librespeed.net/oauth/token';
+        return 'https://www.librespeed.cn/oauth/token';
     }
 
     /**
@@ -56,7 +56,7 @@ class LibreSpeedProvider extends AbstractProvider
      */
     public function getUserByToken(string $token)
     {
-        $response = $this->getHttpClient()->get('https://www.librespeed.net/api/v1/user/profile', [
+        $response = $this->getHttpClient()->get('https://www.librespeed.cn/api/v1/user/profile', [
             'headers' => [
                 'Accept' => 'application/json',
                 'Authorization' => 'Bearer ' . $token,

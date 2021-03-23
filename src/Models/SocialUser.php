@@ -32,9 +32,10 @@ use Larva\Socialite\Contracts\User;
  * @property Carbon $updated_at 更新时间
  *
  * @method static \Illuminate\Database\Eloquent\Builder|SocialUser byOpenid($openid)
- * @method static \Illuminate\Database\Eloquent\Builder|SocialUser byUnionid($userid)
+ * @method static \Illuminate\Database\Eloquent\Builder|SocialUser byUnionid($unionid)
  * @method static \Illuminate\Database\Eloquent\Builder|SocialUser byUserid($userid)
  * @method static \Illuminate\Database\Eloquent\Builder|SocialUser byProvider($provider)
+ * @method static \Illuminate\Database\Eloquent\Builder|SocialUser byWechatOfficialAccount() 获取微信公众平台
  * @method static \Illuminate\Database\Eloquent\Builder|SocialUser byOpenidAndProvider($openid, $provider)
  * @method static \Illuminate\Database\Eloquent\Builder|SocialUser byUnionidAndProvider($unionid, $provider)
  *
@@ -189,6 +190,18 @@ class SocialUser extends Model implements User
     public function scopeByProvider($query, $provider)
     {
         return $query->where('provider', $provider);
+    }
+
+    /**
+     * Finds an account by wechat platform.
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $openid
+     * @param string $provider
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeByWechatOfficialAccount($query)
+    {
+        return $query->where('provider', static::PROVIDER_WECHAT);
     }
 
     /**
