@@ -62,7 +62,7 @@ class FacebookProvider extends AbstractProvider
      *
      * @return string
      */
-    protected function getProviderName(): string
+    protected function getName(): string
     {
         return SocialUser::PROVIDER_FACEBOOK;
     }
@@ -140,7 +140,7 @@ class FacebookProvider extends AbstractProvider
         $user['avatar_original'] = $avatarUrl . '?width=1920';
         $user['profile_url'] = $user['link'] ?? null;
         return SocialUser::mapUserToObject([
-            'provider' => $this->getProviderName(),
+            'provider' => $this->getName(),
             'open_id' => $user['id'],
             'nickname' => null,
             'name' => $user['name'] ?? null,

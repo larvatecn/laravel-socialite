@@ -27,7 +27,7 @@ class LinkedInProvider extends AbstractProvider
      *
      * @return string
      */
-    protected function getProviderName():string
+    protected function getName():string
     {
         return SocialUser::PROVIDER_LINKEDIN;
     }
@@ -129,7 +129,7 @@ class LinkedInProvider extends AbstractProvider
         });
 
         return SocialUser::mapUserToObject([
-            'provider' => $this->getProviderName(),
+            'provider' => $this->getName(),
             'open_id' => $user['id'],
             'nickname' => null,
             'name' => $user['first_name'] . ' ' . $user['last_name'],

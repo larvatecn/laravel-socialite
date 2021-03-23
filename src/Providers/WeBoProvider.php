@@ -24,7 +24,7 @@ class WeBoProvider extends AbstractProvider
      *
      * @return string
      */
-    protected function getProviderName(): string
+    protected function getName(): string
     {
         return SocialUser::PROVIDER_WEIBO;
     }
@@ -79,7 +79,7 @@ class WeBoProvider extends AbstractProvider
     protected function mapUserToObject(array $user, $accessToken = null, $refreshToken = null, $expiresIn = null)
     {
         return SocialUser::mapUserToObject([
-            'provider' => $this->getProviderName(),
+            'provider' => $this->getName(),
             'open_id' => Arr::get($user, 'idstr'),
             'nickname' => Arr::get($user, 'screen_name'),
             'avatar' => Arr::get($user, 'avatar_hd'),

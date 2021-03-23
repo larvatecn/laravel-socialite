@@ -122,7 +122,7 @@ abstract class AbstractProvider implements ProviderContract
      *
      * @return string
      */
-    abstract protected function getProviderName(): string;
+    abstract protected function getName(): string;
 
     /**
      * Get the authentication URL for the provider.

@@ -30,7 +30,7 @@ class BaiduProvider extends AbstractProvider
      *
      * @return string
      */
-    protected function getProviderName(): string
+    protected function getName(): string
     {
         return SocialUser::PROVIDER_BAIDU;
     }
@@ -84,7 +84,7 @@ class BaiduProvider extends AbstractProvider
     protected function mapUserToObject(array $user, $accessToken = null, $refreshToken = null, $expiresIn = null)
     {
         return SocialUser::mapUserToObject([
-            'provider' => $this->getProviderName(),
+            'provider' => $this->getName(),
             'open_id' => Arr::get($user, 'openid'),
             'union_id' => Arr::get($user, 'userid'),
             'nickname' => Arr::get($user, 'username'),

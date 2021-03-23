@@ -36,7 +36,7 @@ class AlipayProvider extends AbstractProvider
      *
      * @return string
      */
-    protected function getProviderName(): string
+    protected function getName(): string
     {
         return SocialUser::PROVIDER_ALIPAY;
     }
@@ -135,7 +135,7 @@ class AlipayProvider extends AbstractProvider
     protected function mapUserToObject(array $user, $accessToken = null, $refreshToken = null, $expiresIn = null)
     {
         return SocialUser::mapUserToObject([
-            'provider' => $this->getProviderName(),
+            'provider' => $this->getName(),
             'open_id' => Arr::get($user, 'user_id'),
             'nickname' => Arr::get($user, 'nick_name'),
             'name' => Arr::get($user, 'nick_name'),

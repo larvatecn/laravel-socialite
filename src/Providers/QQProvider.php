@@ -51,7 +51,7 @@ class QQProvider extends AbstractProvider
      *
      * @return string
      */
-    protected function getProviderName(): string
+    protected function getName(): string
     {
         return SocialUser::PROVIDER_QQ;
     }
@@ -120,7 +120,7 @@ class QQProvider extends AbstractProvider
     protected function mapUserToObject(array $user, $accessToken = null, $refreshToken = null, $expiresIn = null)
     {
         return SocialUser::mapUserToObject([
-            'provider' => $this->getProviderName(),
+            'provider' => $this->getName(),
             'open_id' => $this->openId,
             'union_id' => $this->unionId,
             'nickname' => Arr::get($user, 'nickname'),

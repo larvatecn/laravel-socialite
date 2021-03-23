@@ -23,7 +23,7 @@ class LibreSpeedProvider extends AbstractProvider
      *
      * @return string
      */
-    protected function getProviderName(): string
+    protected function getName(): string
     {
         return SocialUser::PROVIDER_LIBRESPEED;
     }
@@ -76,7 +76,7 @@ class LibreSpeedProvider extends AbstractProvider
     protected function mapUserToObject(array $user, $accessToken = null, $refreshToken = null, $expiresIn = null)
     {
         return SocialUser::mapUserToObject([
-            'provider' => $this->getProviderName(),
+            'provider' => $this->getName(),
             'open_id' => Arr::get($user, 'id'),
             'nickname' => Arr::get($user, 'username'),
             'avatar' => Arr::get($user, 'avatar'),

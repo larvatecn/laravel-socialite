@@ -31,7 +31,7 @@ class GoogleProvider extends AbstractProvider
      *
      * @return string
      */
-    protected function getProviderName(): string
+    protected function getName(): string
     {
         return SocialUser::PROVIDER_GOOGLE;
     }
@@ -91,7 +91,7 @@ class GoogleProvider extends AbstractProvider
         $user['link'] = Arr::get($user, 'profile');
 
         return SocialUser::mapUserToObject([
-            'provider' => $this->getProviderName(),
+            'provider' => $this->getName(),
             'open_id' => Arr::get($user, 'sub'),
             'nickname' => Arr::get($user, 'nickname'),
             'name' => Arr::get($user, 'name'),
