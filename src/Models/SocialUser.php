@@ -31,6 +31,7 @@ use Larva\Socialite\Contracts\User;
  * @property Carbon $created_at 创建时间
  * @property Carbon $updated_at 更新时间
  *
+ * @method static \Illuminate\Database\Eloquent\Builder|SocialUser find($id)
  * @method static \Illuminate\Database\Eloquent\Builder|SocialUser byOpenid($openid)
  * @method static \Illuminate\Database\Eloquent\Builder|SocialUser byUnionid($unionid)
  * @method static \Illuminate\Database\Eloquent\Builder|SocialUser byUserid($userid)
@@ -51,6 +52,7 @@ class SocialUser extends Model implements User
     const PROVIDER_BAIDU = 'baidu';
     const PROVIDER_WECHAT = 'wechat';
     const PROVIDER_WECHAT_WEB = 'wechat_web';
+    const PROVIDER_WECHAT_MOBILE = 'wechat_mobile';
     const PROVIDER_GITHUB = 'github';
     const PROVIDER_FACEBOOK = 'facebook';
     const PROVIDER_GOOGLE = 'google';
@@ -239,6 +241,7 @@ class SocialUser extends Model implements User
             static::PROVIDER_LIBRESPEED => trans('socialite.' . static::PROVIDER_LIBRESPEED),
             static::PROVIDER_WECHAT => trans('socialite.' . static::PROVIDER_WECHAT),
             static::PROVIDER_WECHAT_WEB => trans('socialite.' . static::PROVIDER_WECHAT_WEB),
+            static::PROVIDER_WECHAT_MOBILE => trans('socialite.' . static::PROVIDER_WECHAT_MOBILE),
             static::PROVIDER_WEIBO => trans('socialite.' . static::PROVIDER_WEIBO),
             static::PROVIDER_QQ => trans('socialite.' . static::PROVIDER_QQ),
             static::PROVIDER_BAIDU => trans('socialite.' . static::PROVIDER_BAIDU),
