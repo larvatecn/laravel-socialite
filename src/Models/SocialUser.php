@@ -31,7 +31,7 @@ use Larva\Socialite\Contracts\User;
  * @property Carbon $created_at 创建时间
  * @property Carbon $updated_at 更新时间
  *
- * @method static \Illuminate\Database\Eloquent\Builder|SocialUser find($id)
+ * @method static SocialUser|null find($id)
  * @method static \Illuminate\Database\Eloquent\Builder|SocialUser byOpenid($openid)
  * @method static \Illuminate\Database\Eloquent\Builder|SocialUser byUnionid($unionid)
  * @method static \Illuminate\Database\Eloquent\Builder|SocialUser byUserid($userid)
