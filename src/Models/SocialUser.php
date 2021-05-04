@@ -272,6 +272,11 @@ class SocialUser extends Model implements User
             $unionUser = SocialUser::byUnionIdAndProvider($user['union_id'], $user['provider'])->first();
             if ($unionUser != null && $unionUser->user_id) {
                 $user['user_id'] = $unionUser->user_id;
+            } else if(class_exists('\Larva\Passport\MiniProgram\MiniProgramUser')){
+                $miniProgramUser = \Larva\Passport\MiniProgram\MiniProgramUser::byUnionidAndProvider($user['union_id'], $user['provider'])->first();
+                if ($miniProgramUser != null && $miniProgramUser->user_id) {
+                    $user['user_id'] = $miniProgramUser->user_id;
+                }
             }
         }
         return SocialUser::updateOrCreate([
