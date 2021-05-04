@@ -9,6 +9,7 @@
 namespace Larva\Socialite\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Larva\Socialite\Contracts\User;
 
@@ -276,6 +277,25 @@ class SocialUser extends Model implements User
         return SocialUser::updateOrCreate([
             'open_id' => $user['open_id'], 'provider' => $user['provider']
         ], $user);
+    }
+
+    /**
+     * 获取用户
+     * @param array $user
+     * @return SocialUser
+     */
+    public static function mapWechatMpUserToObject(array $user): SocialUser
+    {
+        return SocialUser::mapUserToObject([
+            'provider' => SocialUser::PROVIDER_WECHAT,
+            'open_id' => Arr::get($user, 'openid'),
+            'union_id' => Arr::get($user, 'unionid'),
+            'nickname' => Arr::get($user, 'nickname'),
+            'name' => Arr::get($user, 'nickname'),
+            'email' => Arr::get($user, 'email'),
+            'avatar' => Arr::get($user, 'headimgurl'),
+            'data' => $user
+        ]);
     }
 
     /**
