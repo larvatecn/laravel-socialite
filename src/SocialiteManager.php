@@ -201,6 +201,20 @@ class SocialiteManager extends Manager implements Contracts\Factory
     }
 
     /**
+     * Create an instance of the specified driver.
+     *
+     * @return AbstractProvider
+     */
+    protected function createWechatDriver()
+    {
+        $config = $this->config->get('services.wechat');
+
+        return $this->buildProvider(
+            Providers\WeChatProvider::class, $config
+        );
+    }
+
+    /**
      * Build an OAuth 2 provider instance.
      *
      * @param string $provider
