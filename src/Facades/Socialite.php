@@ -8,6 +8,7 @@ use Larva\Socialite\Contracts\Factory;
 /**
  * @method static \Larva\Socialite\Contracts\Provider driver(string $driver = null)
  * @see \Larva\Socialite\SocialiteManager
+ * @mixin \Larva\Socialite\SocialiteManager
  */
 class Socialite extends Facade
 {

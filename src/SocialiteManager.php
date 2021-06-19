@@ -52,7 +52,6 @@ class SocialiteManager extends Manager implements Contracts\Factory
     protected function createBaiduDriver()
     {
         $config = $this->config->get('services.baidu');
-
         return $this->buildProvider(
             Providers\BaiduProvider::class, $config
         );
@@ -66,7 +65,6 @@ class SocialiteManager extends Manager implements Contracts\Factory
     protected function createBitbucketDriver()
     {
         $config = $this->config->get('services.bitbucket');
-
         return $this->buildProvider(
             Providers\BitbucketProvider::class, $config
         );
@@ -80,7 +78,6 @@ class SocialiteManager extends Manager implements Contracts\Factory
     protected function createFacebookDriver()
     {
         $config = $this->config->get('services.facebook');
-
         return $this->buildProvider(
             Providers\FacebookProvider::class, $config
         );
@@ -94,7 +91,6 @@ class SocialiteManager extends Manager implements Contracts\Factory
     protected function createGithubDriver()
     {
         $config = $this->config->get('services.github');
-
         return $this->buildProvider(
             Providers\GithubProvider::class, $config
         );
@@ -108,7 +104,6 @@ class SocialiteManager extends Manager implements Contracts\Factory
     protected function createGitlabDriver()
     {
         $config = $this->config->get('services.gitlab');
-
         return $this->buildProvider(
             Providers\GitlabProvider::class, $config
         )->setHost($config['host'] ?? null);
@@ -122,7 +117,6 @@ class SocialiteManager extends Manager implements Contracts\Factory
     protected function createGoogleDriver()
     {
         $config = $this->config->get('services.google');
-
         return $this->buildProvider(
             Providers\GoogleProvider::class, $config
         );
@@ -137,7 +131,6 @@ class SocialiteManager extends Manager implements Contracts\Factory
     protected function createLarvaDriver()
     {
         $config = $this->config->get('services.larva');
-
         return $this->buildProvider(
             Providers\LarvaProvider::class, $config
         );
@@ -152,7 +145,6 @@ class SocialiteManager extends Manager implements Contracts\Factory
     protected function createLibrespeedDriver()
     {
         $config = $this->config->get('services.librespeed');
-
         return $this->buildProvider(
             Providers\LibreSpeedProvider::class, $config
         );
@@ -166,7 +158,6 @@ class SocialiteManager extends Manager implements Contracts\Factory
     protected function createLinkedinDriver()
     {
         $config = $this->config->get('services.linkedin');
-
         return $this->buildProvider(
             Providers\LinkedInProvider::class, $config
         );
@@ -180,7 +171,6 @@ class SocialiteManager extends Manager implements Contracts\Factory
     protected function createQqDriver()
     {
         $config = $this->config->get('services.qq');
-
         return $this->buildProvider(
             Providers\QQProvider::class, $config
         );
@@ -194,7 +184,6 @@ class SocialiteManager extends Manager implements Contracts\Factory
     protected function createWeiboDriver()
     {
         $config = $this->config->get('services.weibo');
-
         return $this->buildProvider(
             Providers\WeBoProvider::class, $config
         );
@@ -208,7 +197,6 @@ class SocialiteManager extends Manager implements Contracts\Factory
     protected function createWechatDriver()
     {
         $config = $this->config->get('services.wechat');
-
         return $this->buildProvider(
             Providers\WeChatProvider::class, $config
         );
@@ -263,10 +251,9 @@ class SocialiteManager extends Manager implements Contracts\Factory
      * Get the default driver name.
      *
      * @return string
-     *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function getDefaultDriver()
+    public function getDefaultDriver(): string
     {
         throw new InvalidArgumentException('No Socialite driver was specified.');
     }
