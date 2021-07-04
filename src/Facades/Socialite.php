@@ -4,11 +4,13 @@ namespace Larva\Socialite\Facades;
 
 use Illuminate\Support\Facades\Facade;
 use Larva\Socialite\Contracts\Factory;
+use Larva\Socialite\Contracts\Provider;
+use Larva\Socialite\SocialiteManager;
 
 /**
- * @method static \Larva\Socialite\Contracts\Provider driver(string $driver = null)
+ * @method static Provider driver(string $driver = null)
  * @see \Larva\Socialite\SocialiteManager
- * @mixin \Larva\Socialite\SocialiteManager
+ * @mixin SocialiteManager
  */
 class Socialite extends Facade
 {

@@ -3,12 +3,13 @@
  * This is NOT a freeware, use is subject to license terms
  * @copyright Copyright (c) 2010-2099 Jinan Larva Information Technology Co., Ltd.
  * @link http://www.larva.com.cn/
- * @license http://www.larva.com.cn/license/
  */
 
 namespace Larva\Socialite\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Larva\Socialite\Contracts\User;
@@ -33,13 +34,13 @@ use Larva\Socialite\Contracts\User;
  * @property Carbon $updated_at 更新时间
  *
  * @method static SocialUser|null find($id)
- * @method static \Illuminate\Database\Eloquent\Builder|SocialUser byOpenid($openid)
- * @method static \Illuminate\Database\Eloquent\Builder|SocialUser byUnionid($unionid)
- * @method static \Illuminate\Database\Eloquent\Builder|SocialUser byUserid($userid)
- * @method static \Illuminate\Database\Eloquent\Builder|SocialUser byProvider($provider)
- * @method static \Illuminate\Database\Eloquent\Builder|SocialUser byWechatOfficialAccount() 获取微信公众平台
- * @method static \Illuminate\Database\Eloquent\Builder|SocialUser byOpenidAndProvider($openid, $provider)
- * @method static \Illuminate\Database\Eloquent\Builder|SocialUser byUnionidAndProvider($unionid, $provider)
+ * @method static Builder|SocialUser byOpenid($openid)
+ * @method static Builder|SocialUser byUnionid($unionid)
+ * @method static Builder|SocialUser byUserid($userid)
+ * @method static Builder|SocialUser byProvider($provider)
+ * @method static Builder|SocialUser byWechatOfficialAccount() 获取微信公众平台
+ * @method static Builder|SocialUser byOpenidAndProvider($openid, $provider)
+ * @method static Builder|SocialUser byUnionidAndProvider($unionid, $provider)
  *
  * @author Tongle Xu <xutongle@gmail.com>
  */
@@ -119,9 +120,9 @@ class SocialUser extends Model implements User
     /**
      * Get the user relation.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(
             config('auth.providers.' . config('auth.guards.web.provider') . '.model')
@@ -151,11 +152,11 @@ class SocialUser extends Model implements User
 
     /**
      * Finds an account by open_id.
-     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param Builder $query
      * @param string $openid
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
-    public function scopeByOpenid($query, $openid)
+    public function scopeByOpenid(Builder $query, string $openid)
     {
         return $query->where('open_id', $openid);
     }
@@ -163,70 +164,67 @@ class SocialUser extends Model implements User
     /**
      * Finds an account by union_id.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param Builder $query
      * @param string $unionid
-     * @param string $provider
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
-    public function scopeByUnionid($query, $unionid)
+    public function scopeByUnionid(Builder $query, string $unionid): Builder
     {
         return $query->where('union_id', $unionid);
     }
 
     /**
      * Finds an account by user_id.
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param integer $userId
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param Builder $query
+     * @param int|string $userId
+     * @return Builder
      */
-    public function scopeByUserid($query, $userId)
+    public function scopeByUserid(Builder $query, $userId): Builder
     {
         return $query->where('user_id', $userId);
     }
 
     /**
      * Finds an account by provider.
-     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param Builder $query
      * @param string $provider
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
-    public function scopeByProvider($query, $provider)
+    public function scopeByProvider(Builder $query, string $provider): Builder
     {
         return $query->where('provider', $provider);
     }
 
     /**
      * Finds an account by wechat platform.
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $openid
-     * @param string $provider
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param Builder $query
+     * @return Builder
      */
-    public function scopeByWechatOfficialAccount($query)
+    public function scopeByWechatOfficialAccount(Builder $query): Builder
     {
         return $query->where('provider', static::PROVIDER_WECHAT);
     }
 
     /**
      * Finds an account by open_id and provider.
-     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param Builder $query
      * @param string $openid
      * @param string $provider
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
-    public function scopeByOpenidAndProvider($query, $openid, $provider)
+    public function scopeByOpenidAndProvider(Builder $query, string $openid, string $provider): Builder
     {
         return $query->where('open_id', $openid)->where('provider', $provider);
     }
 
     /**
      * Finds an account by union_id and provider.
-     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param Builder $query
      * @param string $unionid
      * @param string $provider
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
-    public function scopeByUnionidAndProvider($query, $unionid, $provider)
+    public function scopeByUnionidAndProvider(Builder $query, string $unionid, string $provider): Builder
     {
         return $query->where('union_id', $unionid)->where('provider', $provider);
     }
@@ -235,7 +233,7 @@ class SocialUser extends Model implements User
      * 获取所有提供商类型
      * @return array
      */
-    public static function getProviders()
+    public static function getProviders(): array
     {
         return [
             static::PROVIDER_LARVA => trans('socialite.' . static::PROVIDER_LARVA),
@@ -307,7 +305,7 @@ class SocialUser extends Model implements User
      * 生成用户名
      * @return string|null
      */
-    public function generateUsername()
+    public function generateUsername(): ?string
     {
         if (!empty($this->name)) {
             return $this->name;
@@ -319,7 +317,7 @@ class SocialUser extends Model implements User
     /**
      * @return string
      */
-    public function getOpenId()
+    public function getOpenId(): string
     {
         return $this->open_id;
     }
@@ -327,7 +325,7 @@ class SocialUser extends Model implements User
     /**
      * @return string
      */
-    public function getProviderName()
+    public function getProviderName(): string
     {
         return $this->provider;
     }
@@ -335,7 +333,7 @@ class SocialUser extends Model implements User
     /**
      * @return string
      */
-    public function getUnionId()
+    public function getUnionId(): ?string
     {
         return $this->union_id;
     }
@@ -343,7 +341,7 @@ class SocialUser extends Model implements User
     /**
      * @return string
      */
-    public function getNickname()
+    public function getNickname(): ?string
     {
         return $this->nickname;
     }
@@ -351,7 +349,7 @@ class SocialUser extends Model implements User
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -359,7 +357,7 @@ class SocialUser extends Model implements User
     /**
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -367,7 +365,7 @@ class SocialUser extends Model implements User
     /**
      * @return string
      */
-    public function getAvatar()
+    public function getAvatar(): ?string
     {
         return $this->avatar;
     }
