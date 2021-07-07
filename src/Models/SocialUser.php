@@ -34,13 +34,13 @@ use Larva\Socialite\Contracts\User;
  * @property Carbon $updated_at 更新时间
  *
  * @method static SocialUser|null find($id)
- * @method static Builder|SocialUser byOpenid($openid)
- * @method static Builder|SocialUser byUnionid($unionid)
- * @method static Builder|SocialUser byUserid($userid)
- * @method static Builder|SocialUser byProvider($provider)
- * @method static Builder|SocialUser byWechatOfficialAccount() 获取微信公众平台
- * @method static Builder|SocialUser byOpenidAndProvider($openid, $provider)
- * @method static Builder|SocialUser byUnionidAndProvider($unionid, $provider)
+ * @method static Builder byOpenid($openid)
+ * @method static Builder byUnionid($unionid)
+ * @method static Builder byUserid($userid)
+ * @method static Builder byProvider($provider)
+ * @method static Builder byWechatOfficialAccount() 获取微信公众平台
+ * @method static Builder byOpenidAndProvider($openid, $provider)
+ * @method static Builder byUnionidAndProvider($unionid, $provider)
  *
  * @author Tongle Xu <xutongle@gmail.com>
  */
@@ -156,7 +156,7 @@ class SocialUser extends Model implements User
      * @param string $openid
      * @return Builder
      */
-    public function scopeByOpenid(Builder $query, string $openid)
+    public function scopeByOpenid(Builder $query, string $openid): Builder
     {
         return $query->where('open_id', $openid);
     }
