@@ -46,24 +46,24 @@ use Larva\Socialite\Contracts\User;
  */
 class SocialUser extends Model implements User
 {
-    const PROVIDER_LARVA = 'larva';
-    const PROVIDER_LIBRESPEED = 'librespeed';
-    const PROVIDER_WEIBO = 'weibo';
-    const PROVIDER_QQ = 'qq';
-    const PROVIDER_ALIPAY = 'alipay';
-    const PROVIDER_BAIDU = 'baidu';
-    const PROVIDER_WECHAT = 'wechat';
-    const PROVIDER_WECHAT_WEB = 'wechat_web';
-    const PROVIDER_WECHAT_MOBILE = 'wechat_mobile';
-    const PROVIDER_GITHUB = 'github';
-    const PROVIDER_FACEBOOK = 'facebook';
-    const PROVIDER_GOOGLE = 'google';
-    const PROVIDER_LINKEDIN = 'linkedin';
-    const PROVIDER_BITBUCKET = 'bitbucket';
-    const PROVIDER_GITLAB = 'gitlab';
-    const PROVIDER_DOUYIN = 'douyin';
-    const PROVIDER_OUTLOOK = 'outlook';
-    const PROVIDER_TAOBAO = 'taobao';
+    public const PROVIDER_LARVA = 'larva';
+    public const PROVIDER_LIBRESPEED = 'librespeed';
+    public const PROVIDER_WEIBO = 'weibo';
+    public const PROVIDER_QQ = 'qq';
+    public const PROVIDER_ALIPAY = 'alipay';
+    public const PROVIDER_BAIDU = 'baidu';
+    public const PROVIDER_WECHAT = 'wechat';
+    public const PROVIDER_WECHAT_WEB = 'wechat_web';
+    public const PROVIDER_WECHAT_MOBILE = 'wechat_mobile';
+    public const PROVIDER_GITHUB = 'github';
+    public const PROVIDER_FACEBOOK = 'facebook';
+    public const PROVIDER_GOOGLE = 'google';
+    public const PROVIDER_LINKEDIN = 'linkedin';
+    public const PROVIDER_BITBUCKET = 'bitbucket';
+    public const PROVIDER_GITLAB = 'gitlab';
+    public const PROVIDER_DOUYIN = 'douyin';
+    public const PROVIDER_OUTLOOK = 'outlook';
+    public const PROVIDER_TAOBAO = 'taobao';
 
     /**
      * 与模型关联的数据表。
@@ -268,7 +268,7 @@ class SocialUser extends Model implements User
             $unionUser = SocialUser::byUnionIdAndProvider($user['union_id'], $user['provider'])->first();
             if ($unionUser != null && $unionUser->user_id) {
                 $user['user_id'] = $unionUser->user_id;
-            } else if(class_exists('\Larva\Passport\MiniProgram\MiniProgramUser')){
+            } else if (class_exists('\Larva\Passport\MiniProgram\MiniProgramUser')) {
                 $miniProgramUser = \Larva\Passport\MiniProgram\MiniProgramUser::byUnionidAndProvider($user['union_id'], $user['provider'])->first();
                 if ($miniProgramUser != null && $miniProgramUser->user_id) {
                     $user['user_id'] = $miniProgramUser->user_id;
@@ -300,10 +300,10 @@ class SocialUser extends Model implements User
     }
 
     /**
-     * 生成用户名
+     * 获取用户名
      * @return string|null
      */
-    public function generateUsername(): ?string
+    public function getUsername(): ?string
     {
         if (!empty($this->name)) {
             return $this->name;

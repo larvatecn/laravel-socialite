@@ -4,6 +4,7 @@ namespace Larva\Socialite\Contracts;
 
 /**
  * 社交用户接口
+ * @property \App\Models\User|null $user 用户
  * @author Tongle Xu <xutongle@gmail.com>
  */
 interface User
@@ -42,6 +43,13 @@ interface User
      * @return string
      */
     public function getName();
+
+    /**
+     * Get the username for the user.
+     *
+     * @return string
+     */
+    public function getUsername();
 
     /**
      * Get the e-mail address of the user.
