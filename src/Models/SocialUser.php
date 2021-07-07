@@ -124,9 +124,7 @@ class SocialUser extends Model implements User
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(
-            config('auth.providers.' . config('auth.guards.web.provider') . '.model')
-        );
+        return $this->belongsTo(config('auth.providers.' . config('auth.guards.web.provider') . '.model'));
     }
 
     /**

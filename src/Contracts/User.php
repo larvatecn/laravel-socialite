@@ -4,7 +4,6 @@ namespace Larva\Socialite\Contracts;
 
 /**
  * 社交用户接口
- * @method \App\Models\User|null $user
  * @author Tongle Xu <xutongle@gmail.com>
  */
 interface User

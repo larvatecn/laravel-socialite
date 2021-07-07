@@ -137,7 +137,7 @@ class WeChatProvider extends AbstractProvider
             'open_id' => Arr::get($user, 'openid'),
             'union_id' => Arr::get($user, 'unionid'),
             'nickname' => Arr::get($user, 'nickname'),
-            'avatar' => isset($user['headimgurl']) ? $user['headimgurl'] : null,
+            'avatar' => Arr::get($user, 'headimgurl'),
             'name' => null,
             'email' => null,
             'access_token' => $accessToken,

@@ -71,7 +71,7 @@ class LarvaProvider extends AbstractProvider
      * @param string|null $accessToken
      * @param string|null $refreshToken
      * @param int|null $expiresIn
-     * @return \Larva\Socialite\Contracts\User|SocialUser
+     * @return User|SocialUser
      */
     protected function mapUserToObject(array $user, $accessToken = null, $refreshToken = null, $expiresIn = null)
     {
