@@ -10,6 +10,19 @@ namespace Larva\Socialite\Contracts;
 interface User
 {
     /**
+     * 关联用户
+     * @param \Illuminate\Foundation\Auth\User $user
+     * @return bool
+     */
+    public function connect(\Illuminate\Foundation\Auth\User $user);
+
+    /**
+     * 解除用户关联
+     * @return bool
+     */
+    public function disconnect();
+
+    /**
      * Get the provider name for the user.
      *
      * @return string
