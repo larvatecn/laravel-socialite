@@ -25,7 +25,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
      * @param string $driver
      * @return AbstractProvider
      */
-    public function with(string $driver)
+    public function with(string $driver): AbstractProvider
     {
         return $this->driver($driver);
     }
@@ -35,7 +35,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
      *
      * @return AbstractProvider
      */
-    protected function createAlipayDriver()
+    protected function createAlipayDriver(): AbstractProvider
     {
         $config = $this->config->get('services.alipay');
         return $this->buildProvider(
@@ -48,7 +48,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
      *
      * @return AbstractProvider
      */
-    protected function createBaiduDriver()
+    protected function createBaiduDriver(): AbstractProvider
     {
         $config = $this->config->get('services.baidu');
         return $this->buildProvider(
@@ -61,7 +61,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
      *
      * @return AbstractProvider
      */
-    protected function createBitbucketDriver()
+    protected function createBitbucketDriver(): AbstractProvider
     {
         $config = $this->config->get('services.bitbucket');
         return $this->buildProvider(
@@ -74,7 +74,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
      *
      * @return AbstractProvider
      */
-    protected function createFacebookDriver()
+    protected function createFacebookDriver(): AbstractProvider
     {
         $config = $this->config->get('services.facebook');
         return $this->buildProvider(
@@ -87,7 +87,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
      *
      * @return AbstractProvider
      */
-    protected function createGithubDriver()
+    protected function createGithubDriver(): AbstractProvider
     {
         $config = $this->config->get('services.github');
         return $this->buildProvider(
@@ -100,7 +100,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
      *
      * @return AbstractProvider
      */
-    protected function createGitlabDriver()
+    protected function createGitlabDriver(): AbstractProvider
     {
         $config = $this->config->get('services.gitlab');
         return $this->buildProvider(
@@ -113,7 +113,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
      *
      * @return AbstractProvider
      */
-    protected function createGoogleDriver()
+    protected function createGoogleDriver(): AbstractProvider
     {
         $config = $this->config->get('services.google');
         return $this->buildProvider(
@@ -127,7 +127,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
      * @return AbstractProvider
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    protected function createLarvaDriver()
+    protected function createLarvaDriver(): AbstractProvider
     {
         $config = $this->config->get('services.larva');
         return $this->buildProvider(
@@ -141,7 +141,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
      * @return AbstractProvider
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    protected function createLibrespeedDriver()
+    protected function createLibrespeedDriver(): AbstractProvider
     {
         $config = $this->config->get('services.librespeed');
         return $this->buildProvider(
@@ -154,7 +154,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
      *
      * @return AbstractProvider
      */
-    protected function createLinkedinDriver()
+    protected function createLinkedinDriver(): AbstractProvider
     {
         $config = $this->config->get('services.linkedin');
         return $this->buildProvider(
@@ -167,7 +167,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
      *
      * @return AbstractProvider
      */
-    protected function createQqDriver()
+    protected function createQqDriver(): AbstractProvider
     {
         $config = $this->config->get('services.qq');
         return $this->buildProvider(
@@ -180,7 +180,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
      *
      * @return AbstractProvider
      */
-    protected function createWeiboDriver()
+    protected function createWeiboDriver(): AbstractProvider
     {
         $config = $this->config->get('services.weibo');
         return $this->buildProvider(
@@ -193,7 +193,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
      *
      * @return AbstractProvider
      */
-    protected function createWechatDriver()
+    protected function createWechatDriver(): AbstractProvider
     {
         $config = $this->config->get('services.wechat');
         return $this->buildProvider(
@@ -208,7 +208,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
      * @param array $config
      * @return AbstractProvider
      */
-    public function buildProvider(string $provider, $config)
+    public function buildProvider(string $provider, array $config): AbstractProvider
     {
         return new $provider(
             $this->container->make('request'), $config['client_id'],
