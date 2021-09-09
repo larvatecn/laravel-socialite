@@ -300,6 +300,16 @@ class SocialUser extends Model implements User
     }
 
     /**
+     * 获取微信公众号 openid
+     * @param string|int $userId
+     * @return mixed
+     */
+    public static function getWechatOfficialOpenid($userId)
+    {
+        return SocialUser::ByWechatOfficialAccount()->where('user_id', $userId)->value('open_id');
+    }
+
+    /**
      * 获取用户名
      * @return string|null
      */
