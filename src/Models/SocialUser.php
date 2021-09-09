@@ -304,9 +304,29 @@ class SocialUser extends Model implements User
      * @param string|int $userId
      * @return mixed
      */
-    public static function getWechatOfficialOpenid($userId)
+    public static function getWechatMpOpenid($userId)
     {
-        return SocialUser::ByWechatOfficialAccount()->where('user_id', $userId)->value('open_id');
+        return SocialUser::byWechatOfficialAccount()->where('user_id', $userId)->value('open_id');
+    }
+
+    /**
+     * 获取微信 Web openid
+     * @param string|int $userId
+     * @return mixed
+     */
+    public static function getWechatWebOpenid($userId)
+    {
+        return SocialUser::byProvider(static::PROVIDER_WECHAT_WEB)->where('user_id', $userId)->value('open_id');
+    }
+
+    /**
+     * 获取微信手机 openid
+     * @param string|int $userId
+     * @return mixed
+     */
+    public static function getWechatMobileOpenid($userId)
+    {
+        return SocialUser::byProvider(static::PROVIDER_WECHAT_MOBILE)->where('user_id', $userId)->value('open_id');
     }
 
     /**
