@@ -102,7 +102,7 @@ class QQProvider extends AbstractProvider
         $response = $this->getHttpClient()->get($url);
         $me = json_decode($this->removeCallback($response->getBody()->getContents()), true);
         $this->openId = $me['openid'];
-        $this->unionId = isset($me['unionid']) ? $me['unionid'] : '';
+        $this->unionId = $me['unionid'] ?? '';
         $response = $this->getHttpClient()->get(
             "https://graph.qq.com/user/get_user_info?access_token=$token&openid={$this->openId}&oauth_consumer_key={$this->clientId}"
         );

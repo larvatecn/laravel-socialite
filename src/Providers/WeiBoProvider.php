@@ -102,7 +102,7 @@ class WeiBoProvider extends AbstractProvider
     public function getAccessTokenResponse(string $code): array
     {
         $response = $this->getHttpClient()->post($this->getTokenUrl(), [
-            'query' => $this->getTokenFields($code),
+            'form_params' => $this->getTokenFields($code),
         ]);
         return json_decode($response->getBody(), true);
     }
