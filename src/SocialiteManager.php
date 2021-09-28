@@ -184,7 +184,7 @@ class SocialiteManager extends Manager implements Contracts\Factory
     {
         $config = $this->config->get('services.weibo');
         return $this->buildProvider(
-            Providers\WeBoProvider::class, $config
+            Providers\WeiBoProvider::class, $config
         );
     }
 
@@ -254,6 +254,6 @@ class SocialiteManager extends Manager implements Contracts\Factory
      */
     public function getDefaultDriver(): string
     {
-        throw new InvalidArgumentException('No Socialite driver was specified.');
+        throw new InvalidArgumentException('No Social driver was specified.');
     }
 }
