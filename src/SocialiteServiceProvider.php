@@ -26,7 +26,7 @@ class SocialiteServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
             $this->publishes([
-                __DIR__ . '/../resources/lang' => resource_path('lang'),
+                __DIR__ . '/../resources/lang' => lang_path(),
             ], 'socialite-lang');
         }
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'socialite');
