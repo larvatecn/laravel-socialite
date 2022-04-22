@@ -1,4 +1,9 @@
 <?php
+/**
+ * This is NOT a freeware, use is subject to license terms.
+ *
+ * @copyright Copyright (c) 2010-2099 Jinan Larva Information Technology Co., Ltd.
+ */
 
 namespace Larva\Socialite\Providers;
 
@@ -27,7 +32,7 @@ class LinkedInProvider extends AbstractProvider
      *
      * @return string
      */
-    protected function getName():string
+    protected function getName(): string
     {
         return SocialUser::PROVIDER_LINKEDIN;
     }
@@ -38,7 +43,7 @@ class LinkedInProvider extends AbstractProvider
      * @param string $state
      * @return string
      */
-    protected function getAuthUrl(string $state):string
+    protected function getAuthUrl(string $state): string
     {
         return $this->buildAuthUrlFromBase('https://www.linkedin.com/oauth/v2/authorization', $state);
     }
@@ -48,7 +53,7 @@ class LinkedInProvider extends AbstractProvider
      *
      * @return string
      */
-    protected function getTokenUrl():string
+    protected function getTokenUrl(): string
     {
         return 'https://www.linkedin.com/oauth/v2/accessToken';
     }

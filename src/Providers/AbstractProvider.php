@@ -1,9 +1,15 @@
 <?php
+/**
+ * This is NOT a freeware, use is subject to license terms.
+ *
+ * @copyright Copyright (c) 2010-2099 Jinan Larva Information Technology Co., Ltd.
+ */
 
 namespace Larva\Socialite\Providers;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\RequestOptions;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -86,6 +92,13 @@ abstract class AbstractProvider implements ProviderContract
     protected $stateless = false;
 
     /**
+     * Indicates if PKCE should be used.
+     *
+     * @var bool
+     */
+    protected $usesPKCE = false;
+
+    /**
      * The custom Guzzle configuration options.
      *
      * @var array
@@ -107,6 +120,7 @@ abstract class AbstractProvider implements ProviderContract
      * @param string $clientSecret
      * @param string $redirectUrl
      * @param array $guzzle
+     * @return void
      */
     public function __construct(Request $request, string $clientId, string $clientSecret, string $redirectUrl, $guzzle = [])
     {
@@ -171,6 +185,10 @@ abstract class AbstractProvider implements ProviderContract
             $this->request->session()->put('state', $state = $this->getState());
         }
 
+        if ($this->usesPKCE()) {
+            $this->request->session()->put('code_verifier', $this->getCodeVerifier());
+        }
+
         return new RedirectResponse($this->getAuthUrl($state));
     }
 
@@ -192,7 +210,7 @@ abstract class AbstractProvider implements ProviderContract
      * @param string|null $state
      * @return array
      */
-    protected function getCodeFields($state = null): array
+    protected function getCodeFields(string $state = null): array
     {
         $fields = [
             'client_id' => $this->clientId,
@@ -203,6 +221,11 @@ abstract class AbstractProvider implements ProviderContract
 
         if ($this->usesState()) {
             $fields['state'] = $state;
+        }
+
+        if ($this->usesPKCE()) {
+            $fields['code_challenge'] = $this->getCodeChallenge();
+            $fields['code_challenge_method'] = $this->getCodeChallengeMethod();
         }
 
         return array_merge($fields, $this->parameters);
@@ -232,7 +255,7 @@ abstract class AbstractProvider implements ProviderContract
         }
 
         if ($this->hasInvalidState()) {
-            throw new InvalidStateException;
+            throw new InvalidStateException();
         }
 
         $response = $this->getAccessTokenResponse($this->getCode());
@@ -264,8 +287,10 @@ abstract class AbstractProvider implements ProviderContract
         if ($this->isStateless()) {
             return false;
         }
+
         $state = $this->request->session()->pull('state');
-        return !(strlen($state) > 0 && $this->request->input('state') === $state);
+
+        return empty($state) || $this->request->input('state') !== $state;
     }
 
     /**
@@ -278,8 +303,8 @@ abstract class AbstractProvider implements ProviderContract
     public function getAccessTokenResponse(string $code): array
     {
         $response = $this->getHttpClient()->post($this->getTokenUrl(), [
-            'headers' => ['Accept' => 'application/json'],
-            'form_params' => $this->getTokenFields($code),
+            RequestOptions::HEADERS => ['Accept' => 'application/json'],
+            RequestOptions::FORM_PARAMS => $this->getTokenFields($code),
         ]);
 
         return json_decode($response->getBody(), true);
@@ -293,13 +318,19 @@ abstract class AbstractProvider implements ProviderContract
      */
     protected function getTokenFields(string $code): array
     {
-        return [
+        $fields = [
             'grant_type' => 'authorization_code',
             'client_id' => $this->clientId,
             'client_secret' => $this->clientSecret,
             'code' => $code,
             'redirect_uri' => $this->redirectUrl,
         ];
+
+        if ($this->usesPKCE()) {
+            $fields['code_verifier'] = $this->request->session()->pull('code_verifier');
+        }
+
+        return $fields;
     }
 
     /**
@@ -321,6 +352,7 @@ abstract class AbstractProvider implements ProviderContract
     public function scopes($scopes)
     {
         $this->scopes = array_unique(array_merge($this->scopes, (array)$scopes));
+
         return $this;
     }
 
@@ -333,6 +365,7 @@ abstract class AbstractProvider implements ProviderContract
     public function setScopes($scopes)
     {
         $this->scopes = array_unique((array)$scopes);
+
         return $this;
     }
 
@@ -355,6 +388,7 @@ abstract class AbstractProvider implements ProviderContract
     public function redirectUrl(string $url)
     {
         $this->redirectUrl = $url;
+
         return $this;
     }
 
@@ -368,6 +402,7 @@ abstract class AbstractProvider implements ProviderContract
         if (is_null($this->httpClient)) {
             $this->httpClient = new Client($this->guzzle);
         }
+
         return $this->httpClient;
     }
 
@@ -380,6 +415,7 @@ abstract class AbstractProvider implements ProviderContract
     public function setHttpClient(ClientInterface $client)
     {
         $this->httpClient = $client;
+
         return $this;
     }
 
@@ -392,6 +428,7 @@ abstract class AbstractProvider implements ProviderContract
     public function setRequest(Request $request)
     {
         $this->request = $request;
+
         return $this;
     }
 
@@ -423,6 +460,7 @@ abstract class AbstractProvider implements ProviderContract
     public function stateless()
     {
         $this->stateless = true;
+
         return $this;
     }
 
@@ -437,6 +475,60 @@ abstract class AbstractProvider implements ProviderContract
     }
 
     /**
+     * Determine if the provider uses PKCE.
+     *
+     * @return bool
+     */
+    protected function usesPKCE()
+    {
+        return $this->usesPKCE;
+    }
+
+    /**
+     * Enables PKCE for the provider.
+     *
+     * @return $this
+     */
+    public function enablePKCE()
+    {
+        $this->usesPKCE = true;
+
+        return $this;
+    }
+
+    /**
+     * Generates a random string of the right length for the PKCE code verifier.
+     *
+     * @return string
+     */
+    protected function getCodeVerifier()
+    {
+        return Str::random(96);
+    }
+
+    /**
+     * Generates the PKCE code challenge based on the PKCE code verifier in the session.
+     *
+     * @return string
+     */
+    protected function getCodeChallenge()
+    {
+        $hashed = hash('sha256', $this->request->session()->get('code_verifier'), true);
+
+        return rtrim(strtr(base64_encode($hashed), '+/', '-_'), '=');
+    }
+
+    /**
+     * Returns the hash method used to calculate the PKCE code challenge.
+     *
+     * @return string
+     */
+    protected function getCodeChallengeMethod()
+    {
+        return 'S256';
+    }
+
+    /**
      * Set the custom parameters of the request.
      *
      * @param array $parameters
@@ -445,6 +537,7 @@ abstract class AbstractProvider implements ProviderContract
     public function with(array $parameters)
     {
         $this->parameters = $parameters;
+
         return $this;
     }
 }

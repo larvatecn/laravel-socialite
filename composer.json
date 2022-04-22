@@ -13,13 +13,16 @@
   "type": "library",
   "license": "proprietary",
   "require": {
-    "php": "^7.4|^8.0",
+    "php": "^8.0",
     "ext-json": "*",
     "ext-openssl": "*",
     "guzzlehttp/guzzle": "^6.0 || ^7.0",
-    "illuminate/http": "^8.0 || ^9.0",
-    "illuminate/support": "^8.0 || ^9.0",
-    "illuminate/database": "^8.0 || ^9.0"
+    "illuminate/http": "^9.0",
+    "illuminate/support": "^9.0",
+    "illuminate/database": "^9.0"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.8"
   },
   "autoload": {
     "psr-4": {
@@ -41,6 +44,10 @@
         "Socialite": "Larva\\Socialite\\Facades\\Socialite"
       }
     }
+  },
+  "scripts": {
+    "check-style": "vendor/bin/php-cs-fixer fix --using-cache=no --diff --config=.php-cs-fixer.php --dry-run --ansi",
+    "fix-style": "vendor/bin/php-cs-fixer fix --using-cache=no --config=.php-cs-fixer.php --ansi"
   },
   "config": {
     "sort-packages": true

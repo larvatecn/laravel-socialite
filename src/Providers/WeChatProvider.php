@@ -1,9 +1,8 @@
 <?php
 /**
- * This is NOT a freeware, use is subject to license terms
+ * This is NOT a freeware, use is subject to license terms.
+ *
  * @copyright Copyright (c) 2010-2099 Jinan Larva Information Technology Co., Ltd.
- * @link http://www.larva.com.cn/
- * @license http://www.larva.com.cn/license/
  */
 
 namespace Larva\Socialite\Providers;
@@ -58,7 +57,7 @@ class WeChatProvider extends AbstractProvider
      */
     protected function getAuthUrl(string $state): string
     {
-        return $this->buildAuthUrlFromBase("https://open.weixin.qq.com/connect/qrconnect", $state);
+        return $this->buildAuthUrlFromBase('https://open.weixin.qq.com/connect/qrconnect', $state);
     }
 
     /**
@@ -79,7 +78,7 @@ class WeChatProvider extends AbstractProvider
      * @param string|null $state
      * @return array
      */
-    protected function getCodeFields($state = null): array
+    protected function getCodeFields(string $state = null): array
     {
         $codeFields = parent::getCodeFields($state);
         $codeFields['appid'] = $this->clientId;

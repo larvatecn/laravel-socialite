@@ -1,9 +1,8 @@
 <?php
 /**
- * This is NOT a freeware, use is subject to license terms
+ * This is NOT a freeware, use is subject to license terms.
+ *
  * @copyright Copyright (c) 2010-2099 Jinan Larva Information Technology Co., Ltd.
- * @link http://www.larva.com.cn/
- * @license http://www.larva.com.cn/license/
  */
 
 namespace Larva\Socialite\Providers;
@@ -67,7 +66,8 @@ class GithubProvider extends AbstractProvider
     {
         $userUrl = 'https://api.github.com/user';
         $response = $this->getHttpClient()->get(
-            $userUrl, $this->getRequestOptions($token)
+            $userUrl,
+            $this->getRequestOptions($token)
         );
         $user = json_decode($response->getBody(), true);
         if (in_array('user:email', $this->scopes)) {
@@ -114,7 +114,8 @@ class GithubProvider extends AbstractProvider
 
         try {
             $response = $this->getHttpClient()->get(
-                $emailsUrl, $this->getRequestOptions($token)
+                $emailsUrl,
+                $this->getRequestOptions($token)
             );
         } catch (Exception $e) {
             return;

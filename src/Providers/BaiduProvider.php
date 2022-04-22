@@ -1,9 +1,8 @@
 <?php
 /**
- * This is NOT a freeware, use is subject to license terms
+ * This is NOT a freeware, use is subject to license terms.
+ *
  * @copyright Copyright (c) 2010-2099 Jinan Larva Information Technology Co., Ltd.
- * @link http://www.larva.com.cn/
- * @license http://www.larva.com.cn/license/
  */
 
 namespace Larva\Socialite\Providers;
@@ -43,7 +42,7 @@ class BaiduProvider extends AbstractProvider
      */
     protected function getAuthUrl(string $state): string
     {
-        return $this->buildAuthUrlFromBase("https://openapi.baidu.com/oauth/2.0/authorize", $state);
+        return $this->buildAuthUrlFromBase('https://openapi.baidu.com/oauth/2.0/authorize', $state);
     }
 
     /**

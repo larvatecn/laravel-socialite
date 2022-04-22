@@ -1,4 +1,9 @@
 <?php
+/**
+ * This is NOT a freeware, use is subject to license terms.
+ *
+ * @copyright Copyright (c) 2010-2099 Jinan Larva Information Technology Co., Ltd.
+ */
 
 namespace Larva\Socialite\Contracts;
 
@@ -30,11 +35,11 @@ interface User
     public function getProviderName();
 
     /**
-     * Get the unique openid for the user.
+     * Get the unique identifier for the user.
      *
      * @return string
      */
-    public function getOpenId();
+    public function getId();
 
     /**
      * Get the union id for the user.
@@ -56,13 +61,6 @@ interface User
      * @return string
      */
     public function getName();
-
-    /**
-     * Get the username for the user.
-     *
-     * @return string
-     */
-    public function getUsername();
 
     /**
      * Get the e-mail address of the user.

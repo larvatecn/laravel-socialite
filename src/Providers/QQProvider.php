@@ -1,9 +1,8 @@
 <?php
 /**
- * This is NOT a freeware, use is subject to license terms
+ * This is NOT a freeware, use is subject to license terms.
+ *
  * @copyright Copyright (c) 2010-2099 Jinan Larva Information Technology Co., Ltd.
- * @link http://www.larva.com.cn/
- * @license http://www.larva.com.cn/license/
  */
 
 namespace Larva\Socialite\Providers;
@@ -19,7 +18,6 @@ use Larva\Socialite\Models\SocialUser;
  */
 class QQProvider extends AbstractProvider
 {
-
     /**
      * The scopes being requested.
      *

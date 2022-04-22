@@ -1,8 +1,8 @@
 <?php
 /**
- * This is NOT a freeware, use is subject to license terms
+ * This is NOT a freeware, use is subject to license terms.
+ *
  * @copyright Copyright (c) 2010-2099 Jinan Larva Information Technology Co., Ltd.
- * @link http://www.larva.com.cn/
  */
 
 namespace Larva\Socialite;
@@ -38,8 +38,10 @@ class SocialiteManager extends Manager implements Contracts\Factory
     protected function createAlipayDriver(): AbstractProvider
     {
         $config = $this->config->get('services.alipay');
+
         return $this->buildProvider(
-            Providers\AlipayProvider::class, $config
+            Providers\AlipayProvider::class,
+            $config
         );
     }
 
@@ -51,8 +53,10 @@ class SocialiteManager extends Manager implements Contracts\Factory
     protected function createBaiduDriver(): AbstractProvider
     {
         $config = $this->config->get('services.baidu');
+
         return $this->buildProvider(
-            Providers\BaiduProvider::class, $config
+            Providers\BaiduProvider::class,
+            $config
         );
     }
 
@@ -64,8 +68,10 @@ class SocialiteManager extends Manager implements Contracts\Factory
     protected function createBitbucketDriver(): AbstractProvider
     {
         $config = $this->config->get('services.bitbucket');
+
         return $this->buildProvider(
-            Providers\BitbucketProvider::class, $config
+            Providers\BitbucketProvider::class,
+            $config
         );
     }
 
@@ -77,8 +83,10 @@ class SocialiteManager extends Manager implements Contracts\Factory
     protected function createFacebookDriver(): AbstractProvider
     {
         $config = $this->config->get('services.facebook');
+
         return $this->buildProvider(
-            Providers\FacebookProvider::class, $config
+            Providers\FacebookProvider::class,
+            $config
         );
     }
 
@@ -90,8 +98,10 @@ class SocialiteManager extends Manager implements Contracts\Factory
     protected function createGithubDriver(): AbstractProvider
     {
         $config = $this->config->get('services.github');
+
         return $this->buildProvider(
-            Providers\GithubProvider::class, $config
+            Providers\GithubProvider::class,
+            $config
         );
     }
 
@@ -103,8 +113,10 @@ class SocialiteManager extends Manager implements Contracts\Factory
     protected function createGitlabDriver(): AbstractProvider
     {
         $config = $this->config->get('services.gitlab');
+
         return $this->buildProvider(
-            Providers\GitlabProvider::class, $config
+            Providers\GitlabProvider::class,
+            $config
         )->setHost($config['host'] ?? null);
     }
 
@@ -117,7 +129,8 @@ class SocialiteManager extends Manager implements Contracts\Factory
     {
         $config = $this->config->get('services.google');
         return $this->buildProvider(
-            Providers\GoogleProvider::class, $config
+            Providers\GoogleProvider::class,
+            $config
         );
     }
 
@@ -131,7 +144,8 @@ class SocialiteManager extends Manager implements Contracts\Factory
     {
         $config = $this->config->get('services.larva');
         return $this->buildProvider(
-            Providers\LarvaProvider::class, $config
+            Providers\LarvaProvider::class,
+            $config
         );
     }
 
@@ -145,7 +159,8 @@ class SocialiteManager extends Manager implements Contracts\Factory
     {
         $config = $this->config->get('services.librespeed');
         return $this->buildProvider(
-            Providers\LibreSpeedProvider::class, $config
+            Providers\LibreSpeedProvider::class,
+            $config
         );
     }
 
@@ -158,7 +173,8 @@ class SocialiteManager extends Manager implements Contracts\Factory
     {
         $config = $this->config->get('services.linkedin');
         return $this->buildProvider(
-            Providers\LinkedInProvider::class, $config
+            Providers\LinkedInProvider::class,
+            $config
         );
     }
 
@@ -171,7 +187,8 @@ class SocialiteManager extends Manager implements Contracts\Factory
     {
         $config = $this->config->get('services.qq');
         return $this->buildProvider(
-            Providers\QQProvider::class, $config
+            Providers\QQProvider::class,
+            $config
         );
     }
 
@@ -184,7 +201,8 @@ class SocialiteManager extends Manager implements Contracts\Factory
     {
         $config = $this->config->get('services.weibo');
         return $this->buildProvider(
-            Providers\WeiBoProvider::class, $config
+            Providers\WeiBoProvider::class,
+            $config
         );
     }
 
@@ -197,7 +215,8 @@ class SocialiteManager extends Manager implements Contracts\Factory
     {
         $config = $this->config->get('services.wechat');
         return $this->buildProvider(
-            Providers\WeChatProvider::class, $config
+            Providers\WeChatProvider::class,
+            $config
         );
     }
 
@@ -247,6 +266,32 @@ class SocialiteManager extends Manager implements Contracts\Factory
     }
 
     /**
+     * Forget all of the resolved driver instances.
+     *
+     * @return $this
+     */
+    public function forgetDrivers()
+    {
+        $this->drivers = [];
+
+        return $this;
+    }
+
+    /**
+     * Set the container instance used by the manager.
+     *
+     * @param  \Illuminate\Contracts\Container\Container  $container
+     * @return $this
+     */
+    public function setContainer($container)
+    {
+        $this->app = $container;
+        $this->container = $container;
+
+        return $this;
+    }
+
+    /**
      * Get the default driver name.
      *
      * @return string
@@ -254,6 +299,6 @@ class SocialiteManager extends Manager implements Contracts\Factory
      */
     public function getDefaultDriver(): string
     {
-        throw new InvalidArgumentException('No Social driver was specified.');
+        throw new InvalidArgumentException('No Socialite driver was specified.');
     }
 }

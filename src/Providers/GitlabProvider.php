@@ -1,4 +1,9 @@
 <?php
+/**
+ * This is NOT a freeware, use is subject to license terms.
+ *
+ * @copyright Copyright (c) 2010-2099 Jinan Larva Information Technology Co., Ltd.
+ */
 
 namespace Larva\Socialite\Providers;
 
@@ -33,7 +38,7 @@ class GitlabProvider extends AbstractProvider
      *
      * @return string
      */
-    protected function getName():string
+    protected function getName(): string
     {
         return SocialUser::PROVIDER_GITLAB;
     }
@@ -59,7 +64,7 @@ class GitlabProvider extends AbstractProvider
      * @param string $state
      * @return string
      */
-    protected function getAuthUrl(string $state):string
+    protected function getAuthUrl(string $state): string
     {
         return $this->buildAuthUrlFromBase($this->host . '/oauth/authorize', $state);
     }
@@ -67,7 +72,7 @@ class GitlabProvider extends AbstractProvider
     /**
      * {@inheritdoc}
      */
-    protected function getTokenUrl():string
+    protected function getTokenUrl(): string
     {
         return $this->host . '/oauth/token';
     }

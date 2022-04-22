@@ -1,12 +1,13 @@
 <?php
 /**
- * This is NOT a freeware, use is subject to license terms
+ * This is NOT a freeware, use is subject to license terms.
+ *
  * @copyright Copyright (c) 2010-2099 Jinan Larva Information Technology Co., Ltd.
- * @link http://www.larva.com.cn/
  */
 
 namespace Larva\Socialite;
 
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 use Larva\Socialite\Contracts\Factory;
 
@@ -14,7 +15,7 @@ use Larva\Socialite\Contracts\Factory;
  * 服务提供者
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class SocialiteServiceProvider extends ServiceProvider
+class SocialiteServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
      * Bootstrap the application services.
@@ -30,16 +31,6 @@ class SocialiteServiceProvider extends ServiceProvider
             ], 'socialite-lang');
         }
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'socialite');
-    }
-
-    /**
-     * 是否延迟加载
-     *
-     * @return bool
-     */
-    public function isDeferred(): bool
-    {
-        return true;
     }
 
     /**

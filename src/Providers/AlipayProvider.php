@@ -1,9 +1,8 @@
 <?php
 /**
- * This is NOT a freeware, use is subject to license terms
+ * This is NOT a freeware, use is subject to license terms.
+ *
  * @copyright Copyright (c) 2010-2099 Jinan Larva Information Technology Co., Ltd.
- * @link http://www.larva.com.cn/
- * @license http://www.larva.com.cn/license/
  */
 
 namespace Larva\Socialite\Providers;
@@ -59,7 +58,7 @@ class AlipayProvider extends AbstractProvider
      * @param string|null $state
      * @return array
      */
-    protected function getCodeFields($state = null): array
+    protected function getCodeFields(string $state = null): array
     {
         $fields = parent::getCodeFields($state);
         $fields['app_id'] = $this->clientId;
@@ -90,12 +89,12 @@ class AlipayProvider extends AbstractProvider
         $fields['method'] = 'alipay.system.oauth.token';
         $fields['charset'] = 'utf8';
         $fields['sign_type'] = 'RSA2';
-        $fields['timestamp'] = date("Y-m-d H:i:s");
+        $fields['timestamp'] = date('Y-m-d H:i:s');
         $fields['version'] = '1.0';
         $fields['grant_type'] = 'authorization_code';
         $fields['code'] = $code;
         ksort($fields);
-        openssl_sign(urldecode(http_build_query($fields)), $fields['sign'], $this->getPrivatekey(), "sha256");
+        openssl_sign(urldecode(http_build_query($fields)), $fields['sign'], $this->getPrivatekey(), 'sha256');
         $fields['sign'] = base64_encode($fields['sign']);
         return $fields;
     }
@@ -114,14 +113,14 @@ class AlipayProvider extends AbstractProvider
         $fields['method'] = 'alipay.user.info.share';
         $fields['charset'] = 'utf8';
         $fields['sign_type'] = 'RSA2';
-        $fields['timestamp'] = date("Y-m-d H:i:s");
+        $fields['timestamp'] = date('Y-m-d H:i:s');
         $fields['version'] = '1.0';
         $fields['auth_token'] = $token;
         ksort($fields);
-        openssl_sign(urldecode(http_build_query($fields)), $fields['sign'], $this->getPrivatekey(), "sha256");
+        openssl_sign(urldecode(http_build_query($fields)), $fields['sign'], $this->getPrivatekey(), 'sha256');
         $fields['sign'] = base64_encode($fields['sign']);
-        $response = $this->getHttpClient()->request("GET", $this->baseUrl . "/gateway.do", ['query' => $fields]);
-        $user = Arr::get(json_decode($response->getBody(), true), "alipay_user_info_share_response");
+        $response = $this->getHttpClient()->request('GET', $this->baseUrl . '/gateway.do', ['query' => $fields]);
+        $user = Arr::get(json_decode($response->getBody(), true), 'alipay_user_info_share_response');
         return $user;
     }
 
